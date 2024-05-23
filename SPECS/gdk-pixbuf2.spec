@@ -2,7 +2,7 @@
 
 Name:           gdk-pixbuf2
 Version:        2.36.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An image loading library
 
 License:        LGPLv2+
@@ -13,6 +13,8 @@ Source1:        bug753605-atsize.jpg
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630565
 Patch0:         Turn-off-mmx-support.diff
+# https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/172
+Patch1:         CVE-2022-48622.patch
 
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  libpng-devel
@@ -24,6 +26,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 0.9.3
 # gdk-pixbuf does a configure time check which uses the GIO mime
 # layer; we need to actually have the mime type database.
 BuildRequires:  shared-mime-info
+BuildRequires:  git
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 
@@ -91,7 +94,7 @@ the functionality of the installed %{name} package.
 
 
 %prep
-%autosetup -n gdk-pixbuf-%{version} -p1
+%autosetup -n gdk-pixbuf-%{version} -p1 -Sgit
 
 %build
 autoreconf -fi
@@ -179,6 +182,11 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 
 
 %changelog
+* Wed May 15 2024 Tomas Popela <tpopela@redhat.com> - 2.36.12-6
+- Backport fixes for CVE-2022-48622
+- Apply patches with git to enable binary patching
+- Resolves: RHEL-30478
+
 * Thu Aug 29 2019 Benjamin Otte <otte@gnome.org> - 2.36.12-5
 - Disable mmx support
   Resolves: #1630565

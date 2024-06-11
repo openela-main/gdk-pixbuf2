@@ -2,7 +2,7 @@
 
 Name:           gdk-pixbuf2
 Version:        2.42.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An image loading library
 
 License:        LGPLv2+
@@ -11,6 +11,7 @@ Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-%{
 
 Patch0:         gif-check-for-overflow.patch
 Patch1:         gif-lzw-code-size-overflow.patch
+Patch2:         CVE-2022-48622.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
@@ -121,6 +122,10 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %{_datadir}/installed-tests
 
 %changelog
+* Wed May 15 2024 Tomas Popela <tpopela@redhat.com> - 2.42.6-4
+- Backport fixes for CVE-2022-48622
+- Resolves: RHEL-36432
+
 * Mon Oct 31 2022 Tomas Popela <tpopela@redhat.com> - 2.42.6-3
 - Backport fixes for CVE-2021-46829 and CVE-2021-44648
 - Resolves: rhbz#2115213

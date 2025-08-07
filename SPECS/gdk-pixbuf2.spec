@@ -2,7 +2,7 @@
 
 Name:           gdk-pixbuf2
 Version:        2.36.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An image loading library
 
 License:        LGPLv2+
@@ -15,6 +15,7 @@ Source1:        bug753605-atsize.jpg
 Patch0:         Turn-off-mmx-support.diff
 # https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/172
 Patch1:         CVE-2022-48622.patch
+Patch2:         0001-jpeg-Be-more-careful-with-chunked-icc-data.patch
 
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  libpng-devel
@@ -182,6 +183,10 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 
 
 %changelog
+* Fri Jul 18 2025 Matthias Clasen <mclasen@redhat.com> - 2.36.12-7
+- Backport fixes for CVE-2025-7345
+- Resolves: RHEL-102346
+
 * Wed May 15 2024 Tomas Popela <tpopela@redhat.com> - 2.36.12-6
 - Backport fixes for CVE-2022-48622
 - Apply patches with git to enable binary patching

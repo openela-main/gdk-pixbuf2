@@ -126,7 +126,7 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %changelog
 * Tue Apr 21 2026 Benjamin Otte <botte@redhat.com - 2.42.6-6.1
 - Backport fixes for CVE-2026-5201
-- Related: RHEL-163067
+- Related: RHEL-163069
 
 * Fri Jul 11 2025 Matthias Clasen <mclasen@redhat.com> - 2.42.6-6
 - Fix an oversight
